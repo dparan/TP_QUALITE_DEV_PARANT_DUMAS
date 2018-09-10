@@ -2,19 +2,24 @@ package example;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 public class Six {
 	private String fileName;
 	private List<String> propertyList;
-	private static final Logger LOGGER = Logger.getLogger(Six.class.getName());
+	private static final Logger LOGGER = Logger.getLogger("Six-Logger");
 
+	public Six() {
+		fileName=null;
+		propertyList = new ArrayList<String>();
+	}
+	
 	public String getFileName() {
 		return fileName;
 	}

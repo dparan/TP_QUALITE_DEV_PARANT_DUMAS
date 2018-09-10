@@ -4,14 +4,14 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 
 public class Ten {
-	double a = 16777216.0;
+	public static final int DEUX = 2;
+	public static final double A = 16777216.0;
 	double b = 1.0;
-	double c = a + b;
+	double c = A + b;
 
-	double d = a + b;
 
 	public boolean isOdd(int x) {
-		return x % 2 != 0;
+		return x % DEUX != 0;
 	}
 
 	public String getSecureRandomCode(int length) {

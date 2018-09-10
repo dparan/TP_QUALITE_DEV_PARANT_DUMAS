@@ -12,14 +12,11 @@ public class Twelve{
 	}
 	
 	//@SuppressWarnings("deprecation") @SuppressionWarnings est déprécié
-	public void arret() {
-		synchronized(thread)
-		{
+	public synchronized void arret() {
 			if (thread.isAlive()) {
 				notifyAll();
-				thread.stop();
+				thread.interrupt();
 			}
-		}
 	}
 		
 }
