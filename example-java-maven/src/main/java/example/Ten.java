@@ -1,22 +1,23 @@
 package example;
 
-import java.util.Random;
+import java.security.SecureRandom;
+import java.util.Arrays;
 
 public class Ten {
-	float a = 16777216.0f;
-	float b = 1.0f;
-	float c = a + b;
+	double a = 16777216.0;
+	double b = 1.0;
+	double c = a + b;
 
 	double d = a + b;
 
 	public boolean isOdd(int x) {
-		return x % 2 == 1;
+		return x % 2 != 0;
 	}
 
 	public String getSecureRandomCode(int length) {
-		Random random = new Random();
+		SecureRandom random = new SecureRandom();
 		byte[] bytes = new byte[length];
 		random.nextBytes(bytes);
-		return bytes.toString();
+		return Arrays.toString(bytes);
 	}
 }

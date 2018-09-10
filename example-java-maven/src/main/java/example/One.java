@@ -1,13 +1,15 @@
 package example;
 
-import java.util.logging.Level;
+
 import java.util.logging.Logger;
 
 
 
 public class One {
 	String message = "foo";
-	private Logger log;
+	private static final Logger LOGGER = Logger.getLogger(One.class.getName());
+	
+
 
 	public String foo() {
 		return message;
@@ -17,6 +19,6 @@ public class One {
 	 * Méthode de test
 	 */
 	public void unusedMethod() {
-		log.log(Level.INFO,message);
+		LOGGER.info(message);
 	} 
 }

@@ -24,16 +24,19 @@ public class Two {
 		return message.compareTo(one.foo());
 	}
 	
+
+	// méthodes générées par Eclipse 
+	
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final int PRIME = 31;
 		int result = 1;
-		result = prime * result + ((message == null) ? 0 : message.hashCode());
+		result = PRIME * result + ((message == null) ? 0 : message.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		return this.message.equals(obj);
+		return message.equals(obj);
 	}
 }

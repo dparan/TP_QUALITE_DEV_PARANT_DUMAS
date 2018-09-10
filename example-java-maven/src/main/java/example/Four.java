@@ -12,6 +12,6 @@ public class Four {
 	}
 
 	public boolean isMessageEmpty() {
-		return getMessage().isEmpty();
+		return getMessage()==null||getMessage().isEmpty();
 	}
 }

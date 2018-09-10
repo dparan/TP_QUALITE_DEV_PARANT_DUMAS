@@ -9,7 +9,7 @@ import java.util.logging.Logger;
  */
 public class Three {
 	String message = "foo";
-	Logger log;
+	private static final Logger LOGGER = Logger.getLogger(Three.class.getName());
 
 	/**
 	 * 
@@ -27,7 +27,7 @@ public class Three {
 	public String concat3(One one, Two two) {
 		StringBuilder sb = new StringBuilder(message);
 		String res = sb.append('_').append(one.foo()).append('-').append(two.message).toString();
-		log.info(res);
+		LOGGER.info(res);
 		return res;
 	}
 }

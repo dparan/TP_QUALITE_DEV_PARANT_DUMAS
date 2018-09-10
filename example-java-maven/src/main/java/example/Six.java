@@ -1,7 +1,6 @@
 package example;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -9,10 +8,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Six {
 	private String fileName;
 	private List<String> propertyList;
+	private static final Logger LOGGER = Logger.getLogger(Six.class.getName());
 
 	public String getFileName() {
 		return fileName;
@@ -22,34 +23,38 @@ public class Six {
 		this.fileName = fileName;
 	}
 
-	public void readTheFile() throws IOException{
+	public void readTheFile() throws Exception{
 		Path path = Paths.get(this.getFileName());
-		BufferedReader reader = null;
-		try
-		{
-			reader = Files.newBufferedReader(path);
-			String line = reader.readLine();
-			while (line != null) {
-				line = reader.readLine();
+		try{
+			BufferedReader reader = Files.newBufferedReader(path);
+			try{
+				String line = reader.readLine();
+				while (line != null) {
+					line = reader.readLine();
+				}
+			}finally{
+				reader.close();
 			}
 		}
-		finally
-		{
-			reader.close();
-		}
+		catch(Exception e){
+			LOGGER.info(e.getMessage());
+			throw e;
+		}		
 	}
 
-	public void readTheFile2() throws IOException {
-		OutputStream stream = null;
-		try {
-			for (String property : propertyList) {
-				stream = new FileOutputStream(this.getFileName());
-				stream.write(property.getBytes());
+	public void readTheFile2() throws Exception{
+		try{
+			OutputStream stream = new FileOutputStream(this.getFileName());
+			try {
+				for(String property : propertyList){
+					stream.write(property.getBytes());
+				}
+			}finally{
+				stream.close();
 			}
-		} catch (FileNotFoundException fnfe) {
-			fnfe.printStackTrace();
-		} finally {
-			stream.close();
+		}catch(Exception e){
+			LOGGER.info(e.getMessage());
+			throw e;
 		}
 	}
 }

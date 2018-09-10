@@ -6,16 +6,9 @@ public class Five {
 		return Integer.toString(unEntier);
 	}
 
-	/* à enlever */
-	public String intToString1(int unEntier) {
-		return Integer.toString(unEntier);
-	}
-
-	public String intToString2(int unEntier) {
-		return Integer.toString(unEntier);
-	}
-
-	public String intToString3(int unEntier) {
-		return unEntier + "";
-	}
+	/* intToString1 et intToString2 et intToString3
+	 * à revérifier
+	 * après simplification la une et la deux donne la fonction qui est restée.
+	 * et la trois après simplification crée deux objets ( je sais pas si on doit la laisser ou pas)
+	 */
 }

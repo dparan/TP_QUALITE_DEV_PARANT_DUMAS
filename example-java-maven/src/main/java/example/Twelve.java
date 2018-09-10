@@ -1,18 +1,25 @@
 package example;
 
-public class Twelve extends Thread {
+public class Twelve{
 	Thread thread = null;
 
 	public Twelve(Runnable runnable) {
 		thread = new Thread(runnable);
-		thread.start();
 	}
 
-	@SuppressWarnings("deprecation")
+	public void startThread(){
+		thread.start();
+	}
+	
+	//@SuppressWarnings("deprecation") @SuppressionWarnings est déprécié
 	public void arret() {
-		if (thread.isAlive()) {
-			notify();
-			thread.stop();
+		synchronized(thread)
+		{
+			if (thread.isAlive()) {
+				notifyAll();
+				thread.stop();
+			}
 		}
 	}
+		
 }
