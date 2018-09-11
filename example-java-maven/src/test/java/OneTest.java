@@ -4,18 +4,18 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.Before;
 
-public class EightTest {
+public class OneTest {
 
-	Eight eight;
-	
+	One one = new One()
+			
 	@Before
 	public void setUp() {
-		eight = new Eight();
+		one = new One();
 	}
 	
 	@Test
-	public void testConcat() {
-		assertTrue(eight.concat("abc", "def").equals("abc-def"));
+	public void testReturnMsg() {
+		assertTrue(one.foo().equals("foo"));
 	}
 
 }
