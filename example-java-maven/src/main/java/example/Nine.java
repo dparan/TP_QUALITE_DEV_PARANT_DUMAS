@@ -11,7 +11,5 @@ public enum Nine {
 		this.name = name;
 	}
 
-	void setName(String name) {
-		this.name = name;
-	}
+	/* la méthode setName est inutile car les valeurs des attributs d'un enum n'ont pas vocation à être modifiées
 }
