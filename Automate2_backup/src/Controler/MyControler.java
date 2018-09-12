@@ -14,6 +14,7 @@ public class MyControler{
     //Attribut
     AutomateCodeur ACC;
     AutomateDecodeur ACD;
+    AutomateCellulaire2D AC2D;
     
     public MyControler(){}
     
