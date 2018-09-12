@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package model;
 
 
 /**
@@ -17,14 +17,13 @@ public class AutomateDecodeur extends AutomateCellulaire1D {
         this.initPreviousState(key);
     }
 
-    
     public void setArray(byte[] message) {
         Cell[] cell = new Cell[message.length*8];
         int indice = 0;
         for (byte b : message) {
             int val = b;
             for (int i = 0; i < 8; i++) {
-               cell[i + indice] = new Cell(!((val & 128) == 0), false);
+               cell[i + indice] = new Cell(((val & 128) != 0), false);
                 val <<= 1;
             }
             indice += 8;
@@ -40,7 +39,7 @@ public class AutomateDecodeur extends AutomateCellulaire1D {
         for (byte b : key) {
             int val = b;
             for (int i = 0; i < 8; i++) {
-               cellKey[i + indice] = new Cell(!((val & 128) == 0), false);
+               cellKey[i + indice] = new Cell(((val & 128) != 0), false);
                val <<= 1;
             }
             indice += 8;
@@ -67,7 +66,7 @@ public class AutomateDecodeur extends AutomateCellulaire1D {
         setGeneration();
     }
 
-    public void decoder(int iteration) throws InterruptedException {
+    public void decoder(int iteration){
         for (int i = 1; i < iteration; i++) {
             this.nextGenerationUnivInfiniReverse();
         }

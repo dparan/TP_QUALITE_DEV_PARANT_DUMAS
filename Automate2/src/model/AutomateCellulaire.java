@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,8 +11,8 @@ package Model;
  */
 public abstract class AutomateCellulaire {
 
-    static int DEFAULT_SIZE = 10;
-    static int DEFAULT_GEN = 1;
+    static int defaultSize = 10;
+    static int defaultGen = 1;
     private int generation;
 
     public void setGeneration() {
@@ -23,9 +23,9 @@ public abstract class AutomateCellulaire {
         return this.generation;
     }
 
-    abstract public void initArray();
+    public abstract void initArray();
 
     @Override
-    abstract public String toString();
+    public abstract String toString();
 
 }

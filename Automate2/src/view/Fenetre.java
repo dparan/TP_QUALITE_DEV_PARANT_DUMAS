@@ -1,7 +1,6 @@
-package View;
+package view;
 import javax.swing.*;
 import java.awt.*;
-import Controler.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -10,6 +9,8 @@ import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.border.Border;
+
+import controler.*;
 /**
  *
  * @author rdumas

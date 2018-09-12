@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package model;
 
 /**
  *
@@ -38,15 +38,14 @@ public class AutomateCodeur extends AutomateCellulaire1D {
             bytes.append((cell.isAlive()) ? '1' : '0');
         }
         String input = bytes.toString();
-        String output = "";
+        StringBuilder output = new StringBuilder();
         for (int i = 0; i <= input.length() - 8; i += 8) {
-            int k = Integer.parseInt(input.substring(i, i + 8), 2);
-            output += (char) k;
+            output.append(Integer.parseInt(input.substring(i, i + 8), 2));
         }
-        return output;
+        return output.toString();
     }
 
-    public void coder(int iteration) throws InterruptedException {
+    public void coder(int iteration){
         for (int i = 1; i < iteration; i++) {
             this.nextGenerationUnivInfini();
         }

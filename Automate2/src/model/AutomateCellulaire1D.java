@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package model;
 
 import java.nio.charset.StandardCharsets;
 
@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
  *
  * @author Plouffi
  */
-abstract public class AutomateCellulaire1D extends AutomateCellulaire {
+public abstract class AutomateCellulaire1D extends AutomateCellulaire {
 
     private String message;
     private int taille;
@@ -36,12 +36,12 @@ abstract public class AutomateCellulaire1D extends AutomateCellulaire {
             bytes.append((cell.isAlive()) ? '1' : '0');
         }
         String input = bytes.toString();
-        String output = "";
+        StringBuilder output = new StringBuilder();
         for (int i = 0; i <= input.length() - 8; i += 8) {
-            int k = Integer.parseInt(input.substring(i, i + 8), 2);
-            output += (char) k;
+            output.append((char) Integer.parseInt(input.substring(i, i + 8), 2));
+            /* possibilité de faire mieux */
         }
-        this.message = output;
+        this.message = output.toString();
         setTaille(this.message);
     }
 
@@ -77,7 +77,7 @@ abstract public class AutomateCellulaire1D extends AutomateCellulaire {
         for (byte b : bytes) {
             int val = b;
             for (int i = 0; i < 8; i++) {
-                this.tabCell[i + indice] = new Cell(!((val & 128) == 0), false);
+                this.tabCell[i + indice] = new Cell(((val & 128) != 0), false);
                 val <<= 1;
             }
             indice += 8;
@@ -87,14 +87,12 @@ abstract public class AutomateCellulaire1D extends AutomateCellulaire {
 
     @Override
     public String toString() {
-        String res = "";
-        res += "GÃ©nÃ©ration : " + getGeneration() + "\n";
-        res += this.getMessage();
-        res += "\n";
+        StringBuilder res = new StringBuilder();
+        res.append("Génération : " + getGeneration() + "\n"+this.getMessage()+"\n");
         for (int i = 0; i < this.getTaille(); i++) {
-            res += this.tabCell[i].etat + " ";
+            res.append(this.tabCell[i].etat + " ");
         }
-        res += "\n";
-        return res;
+        res.append("\n");
+        return res.toString();
     }
 }

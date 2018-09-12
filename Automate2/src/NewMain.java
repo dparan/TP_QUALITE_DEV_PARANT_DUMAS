@@ -1,4 +1,4 @@
-import View.*;
+import view.*;
 
 public class NewMain {
 
