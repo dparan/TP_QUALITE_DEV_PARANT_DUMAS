@@ -7,7 +7,7 @@ package model;
 
 /**
  *
- * @author Rémi
+ * @author R�mi
  */
 public class AutomateCodeur extends AutomateCellulaire1D {
 
@@ -19,7 +19,7 @@ public class AutomateCodeur extends AutomateCellulaire1D {
     public void nextGenerationUnivInfini() {
         int size = this.getTaille();
         Cell[] nextGen = new Cell[size];
-        Cell[] neighbours = new Cell[2];
+        Cell[] neighbours = new Cell[BINARY_BASE];
         for (int i = 0; i < size; i++) {
             //Initialisation des voisins
             neighbours[0] = getArray()[(i - 1 + size) % size];
@@ -39,8 +39,8 @@ public class AutomateCodeur extends AutomateCellulaire1D {
         }
         String input = bytes.toString();
         StringBuilder output = new StringBuilder();
-        for (int i = 0; i <= input.length() - 8; i += 8) {
-            output.append(Integer.parseInt(input.substring(i, i + 8), 2));
+        for (int i = 0; i <= input.length() - OCTET_SIZE; i += OCTET_SIZE) {
+            output.append(Integer.parseInt(input.substring(i, i + OCTET_SIZE), BINARY_BASE));
         }
         return output.toString();
     }
@@ -52,7 +52,7 @@ public class AutomateCodeur extends AutomateCellulaire1D {
         //Initialisation de la clé 
         int size = this.getTaille();
         Cell[] key = new Cell[size];
-        Cell[] neighbours = new Cell[2];
+        Cell[] neighbours = new Cell[BINARY_BASE];
         for (int i = 0; i < size; i++) {
             //Initialisation des voisins
             neighbours[0] = getArray()[(i - 1 + size) % size];

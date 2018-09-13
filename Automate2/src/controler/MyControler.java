@@ -3,6 +3,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import model.*;
 
@@ -14,49 +16,43 @@ public class MyControler{
     //Attribut
     AutomateCodeur aCC;
     AutomateDecodeur aCD;
+    static final int ITERATION = 20;
+    static final int NB_FILE = 2;
+
     
-    
-    public String[] coder(String message) throws InterruptedException, IOException{
+    public String[] coder(String message) throws IOException{
         aCC = new AutomateCodeur(message);
         aCC.initArray();
-        aCC.coder(20);
+        aCC.coder(ITERATION);
         byte[] dataMessage = aCC.getMessage().getBytes(StandardCharsets.ISO_8859_1);
         byte[] dataKey = aCC.getKeyInString().getBytes(StandardCharsets.ISO_8859_1);
-        String[] listeFichier = new String[2];
-        FileOutputStream out1 = null;
-        FileOutputStream out2 = null;
-        try
-        {
-            //On écrit les fichiers de message et clé
-            File messageFile = new File("message");
-            if(!messageFile.exists()) {
-               messageFile.createNewFile();
-            } 
-            out1 = new FileOutputStream(messageFile, false);
-            out1.write(dataMessage);
-            
-            File keyFile = new File("key");
-            if(!keyFile.exists()) {
-               keyFile.createNewFile();
-            } 
-            out2 = new FileOutputStream(keyFile,false);
-            out2.write(dataKey);
-            
-            //On enregistre leur chemin
-            listeFichier[0] = messageFile.getAbsolutePath();
-            listeFichier[1] = keyFile.getAbsolutePath();
-            
-        }finally {
-        	out1.close();
-        	out2.close();
+        String[] listeFichier = new String[NB_FILE];
+        
+        //On �crit les fichiers de message et clé
+        File messageFile = new File("message");
+        if(!messageFile.exists() && !messageFile.createNewFile()) {
+        	Logger.getLogger(MyControler.class.getName()).log(Level.SEVERE, null,("Failed to create message file"));
+        }
+        File keyFile = new File("key");
+        if(!keyFile.exists() && !keyFile.createNewFile()) {
+        	Logger.getLogger(MyControler.class.getName()).log(Level.SEVERE, null,("Failed to create key file"));
+        } 
+        try (FileOutputStream out1 = new FileOutputStream(messageFile, false);
+        	 FileOutputStream out2 = new FileOutputStream(keyFile,false);){
+	        out1.write(dataMessage);
+	        out2.write(dataKey);
+	        
+	        //On enregistre leur chemin
+	        listeFichier[0] = messageFile.getAbsolutePath();
+	        listeFichier[1] = keyFile.getAbsolutePath();
         }
         //On retourne l'emplacement des fichiers
         return listeFichier;
     }
     
-    public String decoder(byte[] message, byte[] key) throws InterruptedException{
+    public String decoder(byte[] message, byte[] key){
         aCD = new AutomateDecodeur(message, key);
-        aCD.decoder(20);
+        aCD.decoder(ITERATION);
         return aCD.getMessage();
     }
 }

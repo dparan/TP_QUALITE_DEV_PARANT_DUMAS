@@ -8,41 +8,41 @@ package model;
 
 /**
  *
- * @author RÃ©mi
+ * @author Rémi
  */
 public class AutomateDecodeur extends AutomateCellulaire1D {
 
      public AutomateDecodeur(byte[] message, byte[] key) {
-        this.setArray(message);
+        this.setArrayByteToCell(message);
         this.initPreviousState(key);
     }
 
-    public void setArray(byte[] message) {
-        Cell[] cell = new Cell[message.length*8];
+    public void setArrayByteToCell(byte[] message) {
+        Cell[] cell = new Cell[message.length*OCTET_SIZE];
         int indice = 0;
         for (byte b : message) {
             int val = b;
-            for (int i = 0; i < 8; i++) {
-               cell[i + indice] = new Cell(((val & 128) != 0), false);
+            for (int i = 0; i < OCTET_SIZE; i++) {
+               cell[i + indice] = new Cell(((val & TMP) != 0), false);
                 val <<= 1;
             }
-            indice += 8;
+            indice += OCTET_SIZE;
         }
         this.setArray(cell);
         setMessage(getArray());
     }
 
     public void initPreviousState(byte[] key) {
-        int size = key.length*8;    
+        int size = key.length*OCTET_SIZE;    
         Cell[] cellKey = new Cell[size];
         int indice = 0;
         for (byte b : key) {
             int val = b;
-            for (int i = 0; i < 8; i++) {
-               cellKey[i + indice] = new Cell(((val & 128) != 0), false);
+            for (int i = 0; i < OCTET_SIZE; i++) {
+               cellKey[i + indice] = new Cell(((val & TMP) != 0), false);
                val <<= 1;
             }
-            indice += 8;
+            indice += OCTET_SIZE;
         }
         setKey(cellKey);
         
@@ -54,7 +54,7 @@ public class AutomateDecodeur extends AutomateCellulaire1D {
     public void nextGenerationUnivInfiniReverse() {
         int size = this.getTaille();
         Cell[] nextGen = new Cell[size];
-        Cell[] neighbours = new Cell[2];
+        Cell[] neighbours = new Cell[BINARY_BASE];
         for (int i = 0; i < size; i++) {
             //Initialisation des voisins
             neighbours[0] = getArray()[(i - 1 + size) % size];

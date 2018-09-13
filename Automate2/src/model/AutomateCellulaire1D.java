@@ -6,7 +6,6 @@
 package model;
 
 import java.nio.charset.StandardCharsets;
-
 /**
  *
  * @author Plouffi
@@ -17,13 +16,16 @@ public abstract class AutomateCellulaire1D extends AutomateCellulaire {
     private int taille;
     private Cell[] tabCell;
     private Cell[] key;
-
+    protected static final int OCTET_SIZE = 8;
+    protected static final int BINARY_BASE = 2;
+    protected static final int TMP = 128;
+    
     public int getTaille() {
         return this.taille;
     }
 
     public void setTaille(String message) {
-        this.taille = message.getBytes(StandardCharsets.ISO_8859_1).length*8;
+        this.taille = message.getBytes(StandardCharsets.ISO_8859_1).length*OCTET_SIZE;
     }
     
     public void setTaille(byte[] message) {
@@ -37,9 +39,8 @@ public abstract class AutomateCellulaire1D extends AutomateCellulaire {
         }
         String input = bytes.toString();
         StringBuilder output = new StringBuilder();
-        for (int i = 0; i <= input.length() - 8; i += 8) {
-            output.append((char) Integer.parseInt(input.substring(i, i + 8), 2));
-            /* possibilité de faire mieux */
+        for (int i = 0; i <= input.length() - OCTET_SIZE; i += OCTET_SIZE) {
+            output.append((char) Integer.parseInt(input.substring(i, i + OCTET_SIZE), BINARY_BASE));
         }
         this.message = output.toString();
         setTaille(this.message);
@@ -76,23 +77,12 @@ public abstract class AutomateCellulaire1D extends AutomateCellulaire {
         int indice = 0;
         for (byte b : bytes) {
             int val = b;
-            for (int i = 0; i < 8; i++) {
-                this.tabCell[i + indice] = new Cell(((val & 128) != 0), false);
+            for (int i = 0; i < OCTET_SIZE; i++) {
+                this.tabCell[i + indice] = new Cell(((val & TMP) != 0), false);
                 val <<= 1;
             }
-            indice += 8;
+            indice += OCTET_SIZE;
         }
 
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder res = new StringBuilder();
-        res.append("Génération : " + getGeneration() + "\n"+this.getMessage()+"\n");
-        for (int i = 0; i < this.getTaille(); i++) {
-            res.append(this.tabCell[i].etat + " ");
-        }
-        res.append("\n");
-        return res.toString();
     }
 }

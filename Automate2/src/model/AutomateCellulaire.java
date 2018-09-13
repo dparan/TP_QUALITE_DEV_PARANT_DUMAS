@@ -11,8 +11,8 @@ package model;
  */
 public abstract class AutomateCellulaire {
 
-    static int defaultSize = 10;
-    static int defaultGen = 1;
+    static final int DEFAULT_SIZE = 10;
+    static final int DEFAULT_GEN = 1;
     private int generation;
 
     public void setGeneration() {
@@ -24,8 +24,5 @@ public abstract class AutomateCellulaire {
     }
 
     public abstract void initArray();
-
-    @Override
-    public abstract String toString();
 
 }

@@ -4,8 +4,8 @@ public class Cell {
 
     //Attributs
     private boolean state;
-    private boolean previousState; //Etat de la cellule en t-2
-    char etat;
+    //Etat de la cellule en t-2
+    private boolean previousState;
 
     //Constructeurs
     public Cell() {
@@ -29,12 +29,7 @@ public class Cell {
         return this.previousState;
     }
 
-    public void setState(boolean state) {
-        if (state) {
-            this.etat = '█';
-        } else {
-            this.etat = '░';
-        }
+    public void setState(boolean state){
         this.previousState = this.isAlive();
         this.state = state;
     }
