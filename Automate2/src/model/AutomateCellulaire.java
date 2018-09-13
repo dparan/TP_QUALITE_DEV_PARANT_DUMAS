@@ -8,6 +8,7 @@ package model;
 /**
  *
  * @author Greg
+ * Classe d'automate cellulaire qui en définit les attributs et les méthodes principales
  */
 public abstract class AutomateCellulaire {
 
@@ -23,6 +24,7 @@ public abstract class AutomateCellulaire {
         return this.generation;
     }
 
+    //Méthode permettant d'initialiser l'univers de l'automate
     public abstract void initArray();
 
 }

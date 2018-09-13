@@ -5,7 +5,6 @@
  */
 package model;
 
-
 /**
  *
  * @author Rémi
@@ -17,13 +16,14 @@ public class AutomateDecodeur extends AutomateCellulaire1D {
         this.initPreviousState(key);
     }
 
+    //Méthode permettant de transformer un tableau de bytes en un string
     public void setArrayByteToCell(byte[] message) {
         Cell[] cell = new Cell[message.length*OCTET_SIZE];
         int indice = 0;
         for (byte b : message) {
             int val = b;
             for (int i = 0; i < OCTET_SIZE; i++) {
-               cell[i + indice] = new Cell(((val & TMP) != 0), false);
+               cell[i + indice] = new Cell(((val & BYTE_COMP) != 0), false);
                 val <<= 1;
             }
             indice += OCTET_SIZE;
@@ -32,6 +32,7 @@ public class AutomateDecodeur extends AutomateCellulaire1D {
         setMessage(getArray());
     }
 
+    //Méthode qui initialise le tableau de cellule permettant le décryptage
     public void initPreviousState(byte[] key) {
         int size = key.length*OCTET_SIZE;    
         Cell[] cellKey = new Cell[size];
@@ -39,18 +40,19 @@ public class AutomateDecodeur extends AutomateCellulaire1D {
         for (byte b : key) {
             int val = b;
             for (int i = 0; i < OCTET_SIZE; i++) {
-               cellKey[i + indice] = new Cell(((val & TMP) != 0), false);
+               cellKey[i + indice] = new Cell(((val & BYTE_COMP) != 0), false);
                val <<= 1;
             }
             indice += OCTET_SIZE;
         }
         setKey(cellKey);
-        
+
         for (int i = 0; i < size; i++) {
-            getArray()[i].setPreviousState(getKey()[i].isAlive());
+        	getArray()[i].setPreviousState(getKey()[i].isAlive());
         }
     }
 
+  //Méthode permettant de passer à la génération suivante de cellule
     public void nextGenerationUnivInfiniReverse() {
         int size = this.getTaille();
         Cell[] nextGen = new Cell[size];

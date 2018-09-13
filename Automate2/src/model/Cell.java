@@ -4,12 +4,12 @@ public class Cell {
 
     //Attributs
     private boolean state;
-    //Etat de la cellule en t-2
+    //Etat de la cellule en t-1
     private boolean previousState;
 
     //Constructeurs
     public Cell() {
-        //Par dÃ©faut, une nouvelle Cellule est morte
+        //Par défaut, une nouvelle Cellule est morte
         this.state = false;
         this.previousState = false;
 
@@ -41,12 +41,14 @@ public class Cell {
     public Cell nextState(Cell[] neighbours) {
         int nbAlive = 0;
         int indice = 0;
+        //On compte le nombre decellules voisines vivantes
         while (indice < neighbours.length) {
             if (neighbours[indice].isAlive()) {
                 nbAlive++;
             }
             indice++;
         }
+        //Application des règles de survie
         if (this.isAlive() && nbAlive == 1) {
             return new Cell(true ^ this.previousState, this.state);
         } else if (!this.isAlive() && nbAlive != 1) {
@@ -59,12 +61,14 @@ public class Cell {
     public Cell nextStateInv(Cell[] neighbours) {
         int nbAlive = 0;
         int indice = 0;
+        //On compte le nombre decellules voisines vivantes
         while (indice < neighbours.length) {
             if (neighbours[indice].isAlive()) {
                 nbAlive++;
             }
             indice++;
         }
+        //Application des règles de survie inversées
         if (!this.isAlive() && ((nbAlive == 1 && this.previousState) || (nbAlive != 1 && !this.previousState))) {
             return new Cell(true, this.state);
         } else if (this.isAlive() && ((nbAlive == 1 && !this.previousState) || (nbAlive != 1 && this.previousState))) {

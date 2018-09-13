@@ -62,6 +62,7 @@ public class Fenetre extends JFrame{
         this.displayMenu();
     }
     
+    //Méthode qui affiche le menu
     public void displayMenu(){
         this.panel.removeAll();
         // Titre
@@ -76,8 +77,9 @@ public class Fenetre extends JFrame{
         JButton coder = new JButton("Coder");
         coder.setMaximumSize(new Dimension(BT_WIDTH,BT_HEIGHT));
         coder.setAlignmentX(CENTER_ALIGNMENT);
+        //Utilisation de méthode anonymes pour gérer la gestion des évenements liés aux boutons
         coder.addActionListener((ActionEvent e)->Fenetre.this.coderView());
-        JButton decoder = new JButton("DÃ©coder");
+        JButton decoder = new JButton("Décoder");
         decoder.setMaximumSize(new Dimension(BT_WIDTH,BT_HEIGHT));
         decoder.setAlignmentX(CENTER_ALIGNMENT);
         decoder.addActionListener((ActionEvent e)->Fenetre.this.decoderView());
@@ -89,6 +91,8 @@ public class Fenetre extends JFrame{
         this.add(panel);
         this.setVisible(true);
     }
+    
+    //Méthode qui affiche la vue pour décoder
     public void coderView(){
         panel.removeAll();
         
@@ -151,6 +155,8 @@ public class Fenetre extends JFrame{
         this.add(panel);
         this.setVisible(true);
     }
+    
+    //Méthode qui affiche la vue pour décoder
     public void decoderView(){
         panel.removeAll();
         

@@ -19,7 +19,8 @@ public class MyControler{
     static final int ITERATION = 20;
     static final int NB_FILE = 2;
 
-    
+    //Méthode du controler qui gère le codage du message
+    //S'occupe d'appeler le modèle pour écrire dans les fichiers
     public String[] coder(String message) throws IOException{
         aCC = new AutomateCodeur(message);
         aCC.initArray();
@@ -28,7 +29,7 @@ public class MyControler{
         byte[] dataKey = aCC.getKeyInString().getBytes(StandardCharsets.ISO_8859_1);
         String[] listeFichier = new String[NB_FILE];
         
-        //On écrit les fichiers de message et clÃ©
+        //On écrit les fichiers du message et de la clé
         File messageFile = new File("message");
         if(!messageFile.exists() && !messageFile.createNewFile()) {
         	Logger.getLogger(MyControler.class.getName()).log(Level.SEVERE, null,("Failed to create message file"));
@@ -50,6 +51,8 @@ public class MyControler{
         return listeFichier;
     }
     
+    //Méthode du controler qui gère le codage du message
+    //S'occupe de décoder les fichiers à partir du modèle
     public String decoder(byte[] message, byte[] key){
         aCD = new AutomateDecodeur(message, key);
         aCD.decoder(ITERATION);
